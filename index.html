@@ -72,6 +72,10 @@
         .step-card {
             background-color: white;
             border-left: 4px solid #0891b2; /* cyan-600 */
+            transition: transform 0.2s ease-in-out;
+        }
+        .step-card:hover {
+            transform: translateY(-2px);
         }
         .checklist-item.completed label {
             text-decoration: line-through;
@@ -103,6 +107,13 @@
         }
         .back-link:hover {
             color: #0891b2;
+        }
+        .process-step {
+            flex: 1;
+            min-width: 120px;
+        }
+        .process-arrow {
+            color: #cbd5e1; /* slate-300 */
         }
     </style>
 </head>
@@ -209,39 +220,136 @@
                 <section id="overview" class="main-content space-y-8">
                     <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
                         <h2 class="text-2xl font-bold text-slate-800 mb-4">Welcome, Investigator</h2>
-                        <p class="text-slate-600 leading-relaxed">Welcome to the Digital Forensics and Incident Response (DFIR) lab. In this exercise, you will take on the role of a forensic investigator. You will use the SANS Investigative Forensic Toolkit (SIFT) Workstation, a powerful suite of open-source tools, to analyze a disk image from a system suspected to be involved in a data breach. This interactive lab is designed to provide you with hands-on experience with industry-standard tools and techniques in a structured environment.</p>
+                        <p class="text-slate-600 leading-relaxed">
+                            Welcome to the Digital Forensics and Incident Response (DFIR) lab. In this exercise, you will take on the role of a forensic investigator. You will use the SANS Investigative Forensic Toolkit (SIFT) Workstation, a powerful suite of open-source tools, to analyze a disk image from a system suspected to be involved in a data breach. This interactive lab is designed to provide you with hands-on experience with industry-standard tools and techniques in a structured environment.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4">Lab Objectives</h2>
+                        <ul class="space-y-3 text-slate-600">
+                            <li class="flex items-start"><span class="mr-3 text-cyan-600">&#10004;</span><span>Set up and use the SANS SIFT Workstation.</span></li>
+                            <li class="flex items-start"><span class="mr-3 text-cyan-600">&#10004;</span><span>Perform a forensic analysis of a disk image using Autopsy.</span></li>
+                            <li class="flex items-start"><span class="mr-3 text-cyan-600">&#10004;</span><span>Create and analyze a system timeline to understand user activity.</span></li>
+                            <li class="flex items-start"><span class="mr-3 text-cyan-600">&#10004;</span><span>Identify and extract key artifacts to support an investigation.</span></li>
+                            <li class="flex items-start"><span class="mr-3 text-cyan-600">&#10004;</span><span>Answer critical questions about the incident based on your findings.</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4">Investigation Workflow</h2>
+                        <p class="text-slate-600 mb-6">This lab follows a standard digital forensic process. The diagram below outlines the major phases you will complete. Use the navigation tabs above to move through each phase.</p>
+                        <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-4 text-center">
+                            <div class="process-step p-4 bg-slate-100 rounded-lg">
+                                <div class="text-sm font-bold text-cyan-700">PHASE 1</div>
+                                <div class="text-slate-800 font-semibold">Setup</div>
+                            </div>
+                            <div class="process-arrow text-2xl font-light">&#8594;</div>
+                            <div class="process-step p-4 bg-slate-100 rounded-lg">
+                                <div class="text-sm font-bold text-cyan-700">PHASE 2</div>
+                                <div class="text-slate-800 font-semibold">Analysis</div>
+                            </div>
+                            <div class="process-arrow text-2xl font-light">&#8594;</div>
+                            <div class="process-step p-4 bg-slate-100 rounded-lg">
+                                <div class="text-sm font-bold text-cyan-700">PHASE 3</div>
+                                <div class="text-slate-800 font-semibold">Reporting</div>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <section id="setup" class="main-content hidden">
                      <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
                         <h2 class="text-2xl font-bold text-slate-800 mb-4">Lab Setup Checklist</h2>
+                        <p class="text-slate-600 mb-6">Before starting the investigation, ensure your environment is set up correctly. Check off each item as you complete it.</p>
                         <div class="space-y-4">
-                            <div class="checklist-item p-4 border rounded-lg"><input type="checkbox" id="req1" class="mr-3 h-5 w-5 rounded text-cyan-600 focus:ring-cyan-500"><label for="req1" class="font-medium">Host Computer: At least 8GB RAM & 50GB free disk space.</label></div>
-                            <div class="checklist-item p-4 border rounded-lg"><input type="checkbox" id="req2" class="mr-3 h-5 w-5 rounded text-cyan-600 focus:ring-cyan-500"><label for="req2" class="font-medium">Virtualization Software: VirtualBox or VMware installed.</label></div>
+                            <div class="checklist-item p-4 border rounded-lg transition-colors duration-200">
+                                <input type="checkbox" id="req1" class="mr-3 h-5 w-5 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500">
+                                <label for="req1" class="font-medium text-slate-700">Host Computer: At least 8GB RAM & 50GB free disk space.</label>
+                            </div>
+                            <div class="checklist-item p-4 border rounded-lg transition-colors duration-200">
+                                <input type="checkbox" id="req2" class="mr-3 h-5 w-5 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500">
+                                <label for="req2" class="font-medium text-slate-700">Virtualization Software: VirtualBox or VMware installed.</label>
+                            </div>
+                            <div class="checklist-item p-4 border rounded-lg transition-colors duration-200">
+                                <input type="checkbox" id="req3" class="mr-3 h-5 w-5 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500">
+                                <label for="req3" class="font-medium text-slate-700">SIFT VM Downloaded: Get it from the <a href="https://www.sans.org/tools/sift-workstation/" target="_blank" class="text-cyan-600 hover:underline">SANS website</a>.</label>
+                            </div>
+                             <div class="checklist-item p-4 border rounded-lg transition-colors duration-200">
+                                <input type="checkbox" id="req4" class="mr-3 h-5 w-5 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500">
+                                <label for="req4" class="font-medium text-slate-700">SIFT VM Imported & Started: Login with `sansforensics` / `forensics`.</label>
+                            </div>
+                            <div class="checklist-item p-4 border rounded-lg transition-colors duration-200">
+                                <input type="checkbox" id="req5" class="mr-3 h-5 w-5 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500">
+                                <label for="req5" class="font-medium text-slate-700">Evidence File Downloaded: Get `nps-2008-m57-jean.E01` from <a href="https://digitalcorpora.org/corpora/disk-images/nps-2008-m57-jean" target="_blank" class="text-cyan-600 hover:underline">Digital Corpora</a>.</label>
+                            </div>
+                            <div class="checklist-item p-4 border rounded-lg transition-colors duration-200">
+                                <input type="checkbox" id="req6" class="mr-3 h-5 w-5 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500">
+                                <label for="req6" class="font-medium text-slate-700">Evidence Accessible in SIFT: Use a shared folder (e.g., mounted at `/media/sf_folder_name`).</label>
+                            </div>
                         </div>
                     </div>
                 </section>
                 <section id="workbench" class="main-content hidden">
                     <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
                         <h2 class="text-2xl font-bold text-slate-800 mb-2">Case Briefing: M57-Jean</h2>
-                        <p class="text-slate-600 leading-relaxed">You are a forensic investigator assigned to a case involving an employee named Jean. It is suspected that Jean may have been involved in leaking sensitive corporate documents. Your task is to analyze a forensic image of a USB drive that belonged to Jean and determine if any suspicious activity took place.</p>
+                        <p class="text-slate-600 leading-relaxed">
+                            You are a forensic investigator assigned to a case involving an employee named Jean. It is suspected that Jean may have been involved in leaking sensitive corporate documents. Your task is to analyze a forensic image of a USB drive that belonged to Jean and determine if any suspicious activity took place.
+                        </p>
                     </div>
+                    
                     <div class="mt-8">
                         <div class="flex border-b border-slate-200">
-                            <button data-tab="autopsy" class="workbench-tab py-3 px-5 font-medium text-sm sm:text-base border-b-2">Phase 1: Filesystem Analysis (Autopsy)</button>
-                            <button data-tab="plaso" class="workbench-tab py-3 px-5 font-medium text-sm sm:text-base border-b-2">Phase 2: Timeline Analysis (plaso)</button>
+                            <button data-tab="autopsy" class="workbench-tab py-3 px-5 font-medium text-sm sm:text-base border-b-2 transition-colors duration-200">Phase 1: Filesystem Analysis (Autopsy)</button>
+                            <button data-tab="plaso" class="workbench-tab py-3 px-5 font-medium text-sm sm:text-base border-b-2 transition-colors duration-200">Phase 2: Timeline Analysis (plaso)</button>
                         </div>
+
                         <div class="mt-6 space-y-6">
                             <div id="autopsy-content" class="workbench-content space-y-6">
                                 <div class="step-card p-6 rounded-lg shadow-sm">
                                     <h3 class="font-bold text-lg text-slate-800 mb-2">Step 1: Launch Autopsy</h3>
+                                    <p class="text-slate-600 mb-4">Open a terminal in your SIFT Workstation and run the following command:</p>
                                     <pre class="bg-slate-800 text-white p-4 rounded-md font-mono text-sm relative"><code class="language-bash">autopsy</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
                                 </div>
+                                <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 2: Create a New Case</h3>
+                                    <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                        <li>Click "Create New Case".</li>
+                                        <li>Enter a case name (e.g., "M57-Jean Investigation") and select a directory.</li>
+                                        <li>Enter your name as the examiner.</li>
+                                    </ul>
+                                </div>
+                                <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 3: Add Data Source</h3>
+                                    <ul class="list-disc list-inside text-slate-600 space-y-1">
+                                        <li>Select "Disk Image or VM File" as the data source type.</li>
+                                        <li>Browse to the location of your evidence file (`nps-2008-m57-jean.E01`).</li>
+                                        <li>Leave other settings as default and click "Next".</li>
+                                    </ul>
+                                </div>
+                                <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 4: Configure & Run Ingest Modules</h3>
+                                    <p class="text-slate-600">Keep the default ingest modules selected. These modules will automatically perform various analysis tasks like file type identification, keyword searching, and metadata extraction. Click "Next" to start the analysis. This process will take some time.</p>
+                                </div>
+                                 <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 5: Explore the Evidence</h3>
+                                    <p class="text-slate-600">Once ingest is complete, explore the filesystem. Use the tree view on the left to navigate different data views, such as "File Views" (by file type, deleted files, etc.) and "Data Artifacts" (web history, registry, etc.).</p>
+                                </div>
                             </div>
+
                             <div id="plaso-content" class="workbench-content hidden space-y-6">
                                 <div class="step-card p-6 rounded-lg shadow-sm">
                                     <h3 class="font-bold text-lg text-slate-800 mb-2">Step 1: Run log2timeline</h3>
+                                    <p class="text-slate-600 mb-4">This command creates a timeline from the disk image, parsing artifacts and storing them in a `.plaso` file. Replace `/path/to/your/` with the actual path to your evidence file.</p>
                                     <pre class="bg-slate-800 text-white p-4 rounded-md font-mono text-sm relative"><code class="language-bash">log2timeline.py m57-jean.plaso /path/to/your/nps-2008-m57-jean.E01</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+                                </div>
+                                <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 2: Sort the Timeline</h3>
+                                    <p class="text-slate-600 mb-4">Use `psort.py` to convert the `.plaso` database into a human-readable CSV file for analysis in a spreadsheet program.</p>
+                                    <pre class="bg-slate-800 text-white p-4 rounded-md font-mono text-sm relative"><code class="language-bash">psort.py -o l2tcsv -w m57-jean-timeline.csv m57-jean.plaso</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+                                </div>
+                                <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 3: Analyze the Timeline</h3>
+                                    <p class="text-slate-600">Open the generated `m57-jean-timeline.csv` file with LibreOffice Calc or another spreadsheet tool. Filter and sort the data to look for interesting events, such as file creation/modification times, program execution, and other user activities.</p>
                                 </div>
                             </div>
                         </div>
@@ -250,11 +358,15 @@
                 <section id="findings" class="main-content hidden">
                     <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
                         <h2 class="text-2xl font-bold text-slate-800 mb-4">Investigation Findings Report</h2>
+                        <p class="text-slate-600 mb-6">Use your analysis from the Workbench to answer the following questions. Document your findings in the spaces provided.</p>
                         <div class="space-y-8">
-                            <div>
-                                <label for="q1" class="block font-semibold text-slate-700 mb-2">1. What is the volume name of the USB drive?</label>
-                                <textarea id="q1" rows="2" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500"></textarea>
-                            </div>
+                            <div><label for="q1" class="block font-semibold text-slate-700 mb-2">1. What is the volume name of the USB drive?</label><textarea id="q1" rows="2" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea></div>
+                            <div><label for="q2" class="block font-semibold text-slate-700 mb-2">2. Are there any deleted files on the USB drive? If so, what are their names?</label><textarea id="q2" rows="3" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea></div>
+                            <div><label for="q3" class="block font-semibold text-slate-700 mb-2">3. Can you find any documents with the ".doc" or ".pdf" extension? What are their contents?</label><textarea id="q3" rows="3" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea></div>
+                            <div><label for="q4" class="block font-semibold text-slate-700 mb-2">4. Are there any images on the drive? What do they depict?</label><textarea id="q4" rows="3" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea></div>
+                            <div><label for="q5" class="block font-semibold text-slate-700 mb-2">5. Based on the timeline, when was the USB drive last accessed?</label><textarea id="q5" rows="2" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea></div>
+                            <div><label for="q6" class="block font-semibold text-slate-700 mb-2">6. Is there any evidence of web browsing activity? What websites were visited?</label><textarea id="q6" rows="3" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea></div>
+                            <div><label for="q7" class="block font-semibold text-slate-700 mb-2">7. What is the overall conclusion of your investigation? Did Jean leak sensitive data?</label><textarea id="q7" rows="4" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"></textarea></div>
                         </div>
                     </div>
                 </section>
@@ -269,11 +381,7 @@
 
             function showView(viewId) {
                 views.forEach(view => {
-                    if (view.id === viewId) {
-                        view.classList.remove('hidden');
-                    } else {
-                        view.classList.add('hidden');
-                    }
+                    view.classList.toggle('hidden', view.id !== viewId);
                 });
                 window.scrollTo(0, 0);
             }
@@ -369,4 +477,3 @@
     </script>
 </body>
 </html>
-
