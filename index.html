@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Learning Hub</title>
+    <title>Learning Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Slate & Indigo -->
-    <!-- Application Structure Plan: A top-level landing page using a clean, card-based grid. This structure serves as a clear and simple directory to different subject-matter hubs. The primary goal is to provide an unambiguous starting point for users interested in distinct fields like Cloud Computing or DFIR. This card layout is scalable and user-friendly. -->
-    <!-- Visualization & Content Choices: The page uses styled HTML cards with Unicode icons to represent major learning areas (Goal: Organize/Navigate). The only interaction is clicking these cards to navigate to their respective hub pages. This minimalist approach avoids clutter and directs the user efficiently. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate, Indigo, & Cyan -->
+    <!-- Application Structure Plan: A single-page application with three distinct 'views' managed by JavaScript. The structure is hierarchical: Main Hub -> DFIR Hub -> Lab. This is chosen to provide a seamless user experience without page reloads, guiding the user through a logical path from general topics to specific, interactive content. 'Back' buttons are included for intuitive navigation up the hierarchy. -->
+    <!-- Visualization & Content Choices: The application uses a combination of interactive components. The top-level hubs use clickable cards for navigation (Goal: Organize). The DFIR hub uses an accordion-style reveal for the lab list (Goal: Organize/Interact). The lab itself uses tabs, interactive checklists, and copy-to-clipboard code blocks to create a functional, hands-on learning environment (Goal: Instruct/Simplify). -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc; /* slate-50 */
+        }
+        .font-mono {
+            font-family: 'Inconsolata', monospace;
         }
         .hub-card {
             background-color: white;
@@ -44,184 +47,252 @@
             border: 2px dashed #cbd5e1; /* slate-300 */
             color: #64748b; /* slate-500 */
         }
-    </style>
-</head>
-<body class="text-slate-700">
-
-    <div id="main-hub-view">
-        <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-            <header class="text-center mb-12">
-                <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-800 tracking-tight">Welcome to the Learning Hub</h1>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Select a topic to begin your learning journey.</p>
-            </header>
-
-            <main>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    <!-- Cloud Computing Card -->
-                    <a href="#" class="hub-card p-8 rounded-xl">
-                        <div>
-                            <div class="hub-icon">
-                                <span>☁️</span>
-                            </div>
-                            <h2 class="text-2xl font-bold text-slate-800 mb-2">Cloud Computing</h2>
-                            <p class="text-slate-600">Master the fundamentals and advanced concepts of cloud technologies, platforms, and services.</p>
-                        </div>
-                    </a>
-
-                    <!-- DFIR Card -->
-                    <a href="#" id="dfir-link" class="hub-card p-8 rounded-xl">
-                        <div>
-                            <div class="hub-icon">
-                                <span>🛡️</span>
-                            </div>
-                            <h2 class="text-2xl font-bold text-slate-800 mb-2">Digital Forensics & IR</h2>
-                            <p class="text-slate-600">Dive into the world of DFIR with hands-on labs, case studies, and tool guides.</p>
-                        </div>
-                    </a>
-
-                    <!-- Placeholder Card -->
-                    <div class="hub-card placeholder-card p-8 rounded-xl flex items-center justify-center text-center">
-                        <div>
-                            <div class="text-4xl mb-4">+</div>
-                            <h2 class="text-2xl font-bold">More Topics Coming Soon</h2>
-                        </div>
-                    </div>
-
-                </div>
-            </main>
-
-            <footer class="text-center mt-16 text-slate-500">
-                <p>&copy; 2025 Learning Hub. All Rights Reserved.</p>
-            </footer>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('dfir-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            // In a real multi-page app, this would be:
-            // window.location.href = './forensics_hub_landing_page.html';
-            // For this single-file demo, we'll simulate the navigation.
-            alert('Navigating to the Digital Forensics & IR Hub...');
-        });
-    </script>
-</body>
-</html>
-```
-
-Next, here is the updated **Digital Forensics Learning Hub** page. I've modified the "Interactive Labs" card to dynamically show a list of available labs when clicked.
-
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Forensics Learning Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Slate & Cyan -->
-    <!-- Application Structure Plan: A clean, card-based landing page using a responsive grid. This structure is chosen for its clarity, scalability, and intuitive navigation. Each card represents a major content area or tool, providing a clear visual entry point for the user. This modular approach allows for easy addition of new topics in the future without disrupting the overall layout, making it ideal for a growing resource hub. -->
-    <!-- Visualization & Content Choices: The page uses styled HTML cards with icons (Unicode characters) to represent different sections (Goal: Organize/Navigate). The primary interaction is clicking on these cards to navigate to different resources. Hover effects provide visual feedback. This simple, direct approach is most effective for a landing page whose main purpose is to guide users to other content. No complex visualizations are needed. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
-        }
         .topic-card {
             background-color: white;
             border: 1px solid #e2e8f0; /* slate-200 */
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .topic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
         }
         .topic-icon {
             background-color: #ecfeff; /* cyan-50 */
             color: #0891b2; /* cyan-600 */
-            width: 64px;
-            height: 64px;
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9999px;
-            margin-bottom: 1.5rem;
         }
         #lab-list-container {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
         }
+        .tab-active {
+            border-color: #0891b2; /* cyan-600 */
+            color: #0891b2; /* cyan-600 */
+            background-color: #ecfeff; /* cyan-50 */
+        }
+        .tab-inactive {
+            border-color: transparent;
+            color: #475569; /* slate-600 */
+        }
+        .step-card {
+            background-color: white;
+            border-left: 4px solid #0891b2; /* cyan-600 */
+        }
+        .checklist-item.completed label {
+            text-decoration: line-through;
+            color: #64748b; /* slate-500 */
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #f1f5f9; /* slate-100 */
+            color: #475569; /* slate-600 */
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+        pre:hover .copy-btn {
+            opacity: 1;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: #475569;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+        .back-link:hover {
+            color: #0891b2;
+        }
     </style>
 </head>
 <body class="text-slate-700">
 
-    <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        
-        <header class="text-center mb-12">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-800 tracking-tight">Digital Forensics Learning Hub</h1>
-            <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Your central resource for hands-on labs, case studies, and tool guides in the world of DFIR.</p>
-        </header>
-
-        <main>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- Interactive Lab Card -->
-                <div id="interactive-labs-card" class="topic-card p-8 rounded-xl cursor-pointer">
-                    <div class="flex items-center justify-center rounded-full topic-icon">
-                        <span>🔬</span>
+    <!-- Main Hub View -->
+    <div id="main-hub-view" class="view">
+        <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+            <header class="text-center mb-12">
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-800 tracking-tight">Welcome to the Learning Hub</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Select a topic to begin your learning journey.</p>
+            </header>
+            <main>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <a href="#" class="hub-card p-8 rounded-xl">
+                        <div>
+                            <div class="hub-icon"><span>☁️</span></div>
+                            <h2 class="text-2xl font-bold text-slate-800 mb-2">Cloud Computing</h2>
+                            <p class="text-slate-600">Master the fundamentals and advanced concepts of cloud technologies, platforms, and services.</p>
+                        </div>
+                    </a>
+                    <a href="#" id="dfir-link" class="hub-card p-8 rounded-xl">
+                        <div>
+                            <div class="hub-icon"><span>🛡️</span></div>
+                            <h2 class="text-2xl font-bold text-slate-800 mb-2">Digital Forensics & IR</h2>
+                            <p class="text-slate-600">Dive into the world of DFIR with hands-on labs, case studies, and tool guides.</p>
+                        </div>
+                    </a>
+                    <div class="hub-card placeholder-card p-8 rounded-xl flex items-center justify-center text-center">
+                        <div>
+                            <div class="text-4xl mb-4">+</div>
+                            <h2 class="text-2xl font-bold">More Topics Coming Soon</h2>
+                        </div>
                     </div>
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Interactive Labs</h2>
-                    <p class="text-slate-600">Engage with hands-on scenarios. Analyze real-world evidence files and sharpen your investigative skills.</p>
                 </div>
-
-                <!-- Case Studies Card -->
-                <a href="#" class="topic-card block p-8 rounded-xl">
-                    <div class="flex items-center justify-center rounded-full topic-icon">
-                        <span>📂</span>
-                    </div>
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Case Studies</h2>
-                    <p class="text-slate-600">Explore detailed breakdowns of famous and educational digital forensics cases.</p>
-                </a>
-
-                <!-- Tool Guides Card -->
-                <a href="#" class="topic-card block p-8 rounded-xl">
-                    <div class="flex items-center justify-center rounded-full topic-icon">
-                        <span>🛠️</span>
-                    </div>
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Forensic Tool Guides</h2>
-                    <p class="text-slate-600">Get in-depth guides for essential DFIR tools like Autopsy, Volatility, and Plaso.</p>
-                </a>
-            </div>
-
-            <!-- Lab List Container (hidden by default) -->
-            <div id="lab-list-container" class="bg-white p-8 rounded-xl shadow-md">
-                 <h3 class="text-2xl font-bold text-slate-800 mb-4">Available Labs</h3>
-                 <ul class="space-y-3">
-                     <li>
-                         <a href="#" id="lab1-link" class="flex items-center p-3 rounded-lg hover:bg-slate-100 transition-colors">
-                             <span class="mr-4 text-cyan-600">▶</span>
-                             <span class="font-medium text-slate-700">Digital Forensics Lab: Investigating a Compromised System</span>
-                         </a>
-                     </li>
-                 </ul>
-            </div>
-        </main>
-
-        <footer class="text-center mt-16 text-slate-500">
-            <p>&copy; 2025 Digital Forensics Learning Hub. All Rights Reserved.</p>
-        </footer>
-
+            </main>
+            <footer class="text-center mt-16 text-slate-500"><p>&copy; 2025 Learning Hub. All Rights Reserved.</p></footer>
+        </div>
     </div>
+
+    <!-- DFIR Hub View -->
+    <div id="dfir-hub-view" class="view hidden">
+        <div class="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+            <div class="back-link" data-target="main-hub-view">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                Back to Main Hub
+            </div>
+            <header class="text-center mb-12">
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-800 tracking-tight">Digital Forensics Learning Hub</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Your central resource for hands-on labs, case studies, and tool guides in the world of DFIR.</p>
+            </header>
+            <main>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div id="interactive-labs-card" class="topic-card hub-card p-8 rounded-xl cursor-pointer">
+                        <div class="topic-icon hub-icon"><span>🔬</span></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Interactive Labs</h2>
+                        <p class="text-slate-600">Engage with hands-on scenarios. Analyze real-world evidence files and sharpen your investigative skills.</p>
+                    </div>
+                    <a href="#" class="topic-card hub-card block p-8 rounded-xl">
+                        <div class="topic-icon hub-icon"><span>📂</span></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Case Studies</h2>
+                        <p class="text-slate-600">Explore detailed breakdowns of famous and educational digital forensics cases.</p>
+                    </a>
+                    <a href="#" class="topic-card hub-card block p-8 rounded-xl">
+                        <div class="topic-icon hub-icon"><span>🛠️</span></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Forensic Tool Guides</h2>
+                        <p class="text-slate-600">Get in-depth guides for essential DFIR tools like Autopsy, Volatility, and Plaso.</p>
+                    </a>
+                </div>
+                <div id="lab-list-container" class="bg-white mt-8 p-8 rounded-xl shadow-md">
+                     <h3 class="text-2xl font-bold text-slate-800 mb-4">Available Labs</h3>
+                     <ul class="space-y-3">
+                         <li>
+                             <a href="#" id="lab1-link" class="flex items-center p-3 rounded-lg hover:bg-slate-100 transition-colors">
+                                 <span class="mr-4 text-cyan-600">▶</span>
+                                 <span class="font-medium text-slate-700">Digital Forensics Lab: Investigating a Compromised System</span>
+                             </a>
+                         </li>
+                     </ul>
+                </div>
+            </main>
+            <footer class="text-center mt-16 text-slate-500"><p>&copy; 2025 Digital Forensics Learning Hub. All Rights Reserved.</p></footer>
+        </div>
+    </div>
+
+    <!-- Lab View -->
+    <div id="lab-view" class="view hidden">
+        <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+            <div class="back-link" data-target="dfir-hub-view">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                Back to DFIR Hub
+            </div>
+            <header class="text-center mb-10">
+                <h1 class="text-3xl sm:text-4xl font-bold text-slate-800">Digital Forensics Lab</h1>
+                <p class="mt-2 text-lg text-slate-600">Investigating a Compromised System with SANS SIFT</p>
+            </header>
+            <nav class="flex justify-center border-b border-slate-200 mb-8">
+                <button data-tab="overview" class="main-tab py-4 px-6 font-medium text-sm sm:text-base border-b-2 transition-colors duration-200">Overview</button>
+                <button data-tab="setup" class="main-tab py-4 px-6 font-medium text-sm sm:text-base border-b-2 transition-colors duration-200">Lab Setup</button>
+                <button data-tab="workbench" class="main-tab py-4 px-6 font-medium text-sm sm:text-base border-b-2 transition-colors duration-200">Workbench</button>
+                <button data-tab="findings" class="main-tab py-4 px-6 font-medium text-sm sm:text-base border-b-2 transition-colors duration-200">Findings</button>
+            </nav>
+            <main>
+                <section id="overview" class="main-content space-y-8">
+                    <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4">Welcome, Investigator</h2>
+                        <p class="text-slate-600 leading-relaxed">Welcome to the Digital Forensics and Incident Response (DFIR) lab. In this exercise, you will take on the role of a forensic investigator. You will use the SANS Investigative Forensic Toolkit (SIFT) Workstation, a powerful suite of open-source tools, to analyze a disk image from a system suspected to be involved in a data breach. This interactive lab is designed to provide you with hands-on experience with industry-standard tools and techniques in a structured environment.</p>
+                    </div>
+                </section>
+                <section id="setup" class="main-content hidden">
+                     <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4">Lab Setup Checklist</h2>
+                        <div class="space-y-4">
+                            <div class="checklist-item p-4 border rounded-lg"><input type="checkbox" id="req1" class="mr-3 h-5 w-5 rounded text-cyan-600 focus:ring-cyan-500"><label for="req1" class="font-medium">Host Computer: At least 8GB RAM & 50GB free disk space.</label></div>
+                            <div class="checklist-item p-4 border rounded-lg"><input type="checkbox" id="req2" class="mr-3 h-5 w-5 rounded text-cyan-600 focus:ring-cyan-500"><label for="req2" class="font-medium">Virtualization Software: VirtualBox or VMware installed.</label></div>
+                        </div>
+                    </div>
+                </section>
+                <section id="workbench" class="main-content hidden">
+                    <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Case Briefing: M57-Jean</h2>
+                        <p class="text-slate-600 leading-relaxed">You are a forensic investigator assigned to a case involving an employee named Jean. It is suspected that Jean may have been involved in leaking sensitive corporate documents. Your task is to analyze a forensic image of a USB drive that belonged to Jean and determine if any suspicious activity took place.</p>
+                    </div>
+                    <div class="mt-8">
+                        <div class="flex border-b border-slate-200">
+                            <button data-tab="autopsy" class="workbench-tab py-3 px-5 font-medium text-sm sm:text-base border-b-2">Phase 1: Filesystem Analysis (Autopsy)</button>
+                            <button data-tab="plaso" class="workbench-tab py-3 px-5 font-medium text-sm sm:text-base border-b-2">Phase 2: Timeline Analysis (plaso)</button>
+                        </div>
+                        <div class="mt-6 space-y-6">
+                            <div id="autopsy-content" class="workbench-content space-y-6">
+                                <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 1: Launch Autopsy</h3>
+                                    <pre class="bg-slate-800 text-white p-4 rounded-md font-mono text-sm relative"><code class="language-bash">autopsy</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+                                </div>
+                            </div>
+                            <div id="plaso-content" class="workbench-content hidden space-y-6">
+                                <div class="step-card p-6 rounded-lg shadow-sm">
+                                    <h3 class="font-bold text-lg text-slate-800 mb-2">Step 1: Run log2timeline</h3>
+                                    <pre class="bg-slate-800 text-white p-4 rounded-md font-mono text-sm relative"><code class="language-bash">log2timeline.py m57-jean.plaso /path/to/your/nps-2008-m57-jean.E01</code><button class="copy-btn" onclick="copyCode(this)">Copy</button></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="findings" class="main-content hidden">
+                    <div class="bg-white p-6 sm:p-8 rounded-lg shadow-sm">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4">Investigation Findings Report</h2>
+                        <div class="space-y-8">
+                            <div>
+                                <label for="q1" class="block font-semibold text-slate-700 mb-2">1. What is the volume name of the USB drive?</label>
+                                <textarea id="q1" rows="2" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-cyan-500"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const views = document.querySelectorAll('.view');
+            const backLinks = document.querySelectorAll('.back-link');
+
+            function showView(viewId) {
+                views.forEach(view => {
+                    if (view.id === viewId) {
+                        view.classList.remove('hidden');
+                    } else {
+                        view.classList.add('hidden');
+                    }
+                });
+                window.scrollTo(0, 0);
+            }
+
+            document.getElementById('dfir-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                showView('dfir-hub-view');
+            });
+
+            backLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    showView(link.dataset.target);
+                });
+            });
+
+            // DFIR Hub Logic
             const labsCard = document.getElementById('interactive-labs-card');
             const labListContainer = document.getElementById('lab-list-container');
+            labListContainer.style.maxHeight = null;
 
             labsCard.addEventListener('click', function() {
                 if (labListContainer.style.maxHeight) {
@@ -235,11 +306,67 @@ Next, here is the updated **Digital Forensics Learning Hub** page. I've modified
 
             document.getElementById('lab1-link').addEventListener('click', function(e) {
                 e.preventDefault();
-                // In a real multi-page app, this would be:
-                // window.location.href = './interactive_forensics_lab_v1.html';
-                alert('Navigating to the "Investigating a Compromised System" lab...');
+                showView('lab-view');
+            });
+
+            // Lab View Logic
+            const mainTabs = document.querySelectorAll('#lab-view .main-tab');
+            const mainContents = document.querySelectorAll('#lab-view .main-content');
+            const workbenchTabs = document.querySelectorAll('#lab-view .workbench-tab');
+            const workbenchContents = document.querySelectorAll('#lab-view .workbench-content');
+
+            function switchLabTab(tabs, contents, activeTab) {
+                tabs.forEach(tab => {
+                    tab.classList.toggle('tab-active', tab === activeTab);
+                    tab.classList.toggle('tab-inactive', tab !== activeTab);
+                });
+                contents.forEach(content => {
+                    const contentId = content.id.replace('-content', '');
+                    content.classList.toggle('hidden', contentId !== activeTab.dataset.tab);
+                });
+            }
+
+            if (mainTabs.length > 0) {
+                mainTabs.forEach(tab => tab.addEventListener('click', () => switchLabTab(mainTabs, mainContents, tab)));
+                switchLabTab(mainTabs, mainContents, mainTabs[0]);
+            }
+            if (workbenchTabs.length > 0) {
+                workbenchTabs.forEach(tab => tab.addEventListener('click', () => switchLabTab(workbenchTabs, workbenchContents, tab)));
+                switchLabTab(workbenchTabs, workbenchContents, workbenchTabs[0]);
+            }
+            
+            const checklistItems = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            checklistItems.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    this.closest('.checklist-item').classList.toggle('completed', this.checked);
+                });
             });
         });
+
+        function copyCode(button) {
+            const pre = button.parentElement;
+            const code = pre.querySelector('code');
+            const text = code.innerText;
+
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            textArea.setSelectionRange(0, 99999);
+
+            try {
+                document.execCommand('copy');
+                button.innerText = 'Copied!';
+                setTimeout(() => {
+                    button.innerText = 'Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
     </script>
 </body>
 </html>
+
